@@ -39,8 +39,8 @@ if __name__ == "__main__":
     #create an instance (object) of the class
     sorter = NumberSorter('numbers.txt')
     # call methods
-    sorter.reads_numbers()
-    sorter.text_and_save('even.txt', 'odd.txt')
+    sorter.read_numbers()
+    sorter.sort_and_save('even.txt', 'odd.txt')
 
 
             
