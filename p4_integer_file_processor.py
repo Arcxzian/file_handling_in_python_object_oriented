@@ -29,7 +29,7 @@ class IntegerFileProcessor(FileHandler):
 
     def validate_and_convert(self, raw_data):
         """filters out non-numeric strings to prevent crashes."""
-        valid_numbers : []
+        valid_numbers = []
         for item in raw_data:
             try:
                 valid_numbers.append(int(item))   
@@ -46,7 +46,45 @@ class IntegerFileProcessor(FileHandler):
             else:
                 # cube odd numbers
                 self.odd_result.append(num ** 3)
+        def generate_report(self):
+        """Prints a summary report of the operations."""
+        print("-" * 30)
+        print("PROCESS SUMMARY")
+        print("-" * 30)
+        print(f"Even numbers squared: {len(self.even_results)}")
+        print(f"Odd numbers cubed: {len(self.odd_results)}")
+        print(f"Invalid entries found: {self.error_count}")
+        print("-" * 30 )
+        print("Files 'double.txt' and 'triple.txt' updated successfully.")
 
+    def run(self):
+        """Orchestrates the entire flow."""
+        try:
+            # step 1: read raw data
+            print(f"opening {self.filename}...")
+            raw_content = self.read_data()
 
-      
+            # step 2: validate and convert to integers
+            clean_numbers = self.validate_and_convert(raw_content)
 
+            # step 3: perform math operations
+            self.compute_math(clean_numbers)
+
+            # step 4: write results to files
+            self.write_to_file("double.txt", self.even_results)
+            self.write_to_file("tripe.txt", self.odd_results)
+
+            #step 5: generate report
+            self.generate_report()
+
+        except FileNotFoundError as e:
+            print(f"[CRITICAL ERROR] {e}")
+            print(f"Please create 'integers.txt' with 20 numbers first.")
+        except Exception as e:
+            print(f"[UNEXPECTED ERROR] {e}")
+
+# Main execution
+if __name__ == "__main__":
+    # this is only look for 'integers.txt' in the same folder. If the file doesn't exist, it will trigger the custom error message.
+    app =IntegerFileProcessor("integers.txt")
+    app.run()
