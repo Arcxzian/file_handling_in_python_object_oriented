@@ -45,7 +45,7 @@ class IntegerFileProcessor(FileHandler):
                 self.even_results.append(num ** 2)
             else:
                 # cube odd numbers
-                self.odd_result.append(num ** 3)
+                self.odd_results.append(num ** 3)
         def generate_report(self):
         """Prints a summary report of the operations."""
         print("-" * 30)
